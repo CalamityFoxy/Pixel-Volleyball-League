@@ -31,7 +31,7 @@ public class MovementPlayerScript : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKey(KeyCode.RightShift) && Input.GetKey(KeyCode.DownArrow) && ballHit.PelotaEnRadio())
+        if (Input.GetKey(KeyCode.DownArrow) && ballHit.PelotaEnRadio())
         {
             if (Time.time >= tiempoUltimaActivacion + tiempoDeEnfriamiento)
             {
@@ -48,7 +48,7 @@ public class MovementPlayerScript : MonoBehaviour
             }
 
         }
-        if (Input.GetKey(KeyCode.Space) && IsJumping1 && ballHit.PelotaEnRadio())
+        if (Input.GetKey(KeyCode.RightShift) && IsJumping1 && ballHit.PelotaEnRadio())
         {
             if (Time.time >= tiempoUltimaActivacion + tiempoDeEnfriamiento)
             {
