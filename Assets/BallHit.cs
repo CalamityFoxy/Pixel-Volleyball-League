@@ -101,6 +101,13 @@ public class BallHit : MonoBehaviour
             player2.ResetTeclaParaRematar2();
             Debug.Log("Remate");
         }
+        // PLAYER 2
+        if (collision.CompareTag("Hitbox2") && player2.teclaParaFakear2)
+        {
+            rbBall.velocity = new Vector2(10, 4);
+            player2.ResetTeclaParaFakear2();
+            Debug.Log("Fake");
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)

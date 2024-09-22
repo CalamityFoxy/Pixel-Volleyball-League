@@ -13,13 +13,14 @@ public class MovementPlayer2Script : MonoBehaviour
     private bool TeclaParaArmar2 = false;
     private bool TeclaParaPegar2 = false;
     private bool TeclaParaRematar2 = false;
+    private bool TeclaParaFakear2 = false;
     private float tiempoDeEnfriamiento = 0.5f;
     private float tiempoUltimaActivacion = 0f;
 
     public bool teclaParaArmar2 => TeclaParaArmar2;
     public bool teclaParaPegar2 => TeclaParaPegar2;
     public bool teclaParaRematar2 => TeclaParaRematar2;
-
+    public bool teclaParaFakear2 => TeclaParaFakear2;   
     void Start()
     {
         rb2 = GetComponent<Rigidbody2D>();
@@ -31,11 +32,19 @@ public class MovementPlayer2Script : MonoBehaviour
         float velocidadMovimiento = 5f; // Velocidad de movimiento
 
         // Controles para acciones
-        if (Input.GetKey(KeyCode.S) && ballHit.PelotaEnRadio2())
+        if (Input.GetKey(KeyCode.S) && !IsJumping2 && ballHit.PelotaEnRadio2())
         {
             if (Time.time >= tiempoUltimaActivacion + tiempoDeEnfriamiento)
             {
                 TeclaParaArmar2 = true;
+                tiempoUltimaActivacion = Time.time;
+            }
+        }
+        if (Input.GetKey(KeyCode.S) && IsJumping2 && ballHit.PelotaEnRadio2())
+        {
+            if (Time.time >= tiempoUltimaActivacion + tiempoDeEnfriamiento)
+            {
+                TeclaParaFakear2 = true;
                 tiempoUltimaActivacion = Time.time;
             }
         }
@@ -141,6 +150,10 @@ public class MovementPlayer2Script : MonoBehaviour
     public void ResetTeclaParaRematar2()
     {
         TeclaParaRematar2 = false;
+    }
+    public void ResetTeclaParaFakear2()
+    {
+        TeclaParaFakear2 = false;
     }
 }
 
