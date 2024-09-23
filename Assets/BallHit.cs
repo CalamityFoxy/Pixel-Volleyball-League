@@ -33,14 +33,14 @@ public class BallHit : MonoBehaviour
         if (collision.gameObject.CompareTag("Hitbox"))
         {
             pelotaEnRadio1 = true;
-            Debug.Log("ColisionaConPlayer1");
+            //Debug.Log("ColisionaConPlayer1");
         }
 
         // PLAYER 2
         if (collision.gameObject.CompareTag("Hitbox2"))
         {
             pelotaEnRadio2 = true;
-            Debug.Log("ColisionaConPlayer2");
+           // Debug.Log("ColisionaConPlayer2");
         }
 
         // Detecta cuando la pelota entra en la zona de gol de un jugador
@@ -59,54 +59,54 @@ public class BallHit : MonoBehaviour
         // PLAYER 1
         if (collision.CompareTag("Hitbox") && player.teclaParaArmar1)
         {
-            rbBall.velocity = new Vector2(0, 15);
+            rbBall.velocity = new Vector2(-2, 15);
             player.ResetTeclaParaArmar();
-            Debug.Log("Armado");
+            //Debug.Log("Armado");
         }
         if (collision.CompareTag("Hitbox") && player.teclaParaFakear1)
         {
             rbBall.velocity = new Vector2(-10, 4);
             player.ResetTeclaParaFakear();
-            Debug.Log("Fakear");
+            //Debug.Log("Fakear");
         }
         if (collision.CompareTag("Hitbox") && player.teclaParaPegar1)
         {
-            rbBall.velocity = new Vector2(-10, 10);
+            rbBall.velocity = new Vector2(-10, 16);
             player.ResetTeclaParaPegar();
-            Debug.Log("Golpe Basico");
+            //Debug.Log("Golpe Basico");
         }
         if (collision.CompareTag("Hitbox") && player.teclaParaRematar1)
         {
             rbBall.velocity = new Vector2(-15, -15);
             player.ResetTeclaParaRematar();
-            Debug.Log("Remate");
+            //Debug.Log("Remate");
         }
 
         // PLAYER 2
         if (collision.CompareTag("Hitbox2") && player2.teclaParaArmar2)
         {
-            rbBall.velocity = new Vector2(0, 15);
+            rbBall.velocity = new Vector2(2, 15);
             player2.ResetTeclaParaArmar2();
-            Debug.Log("Armado");
+            //Debug.Log("Armado");
         }
         if (collision.CompareTag("Hitbox2") && player2.teclaParaPegar2)
         {
-            rbBall.velocity = new Vector2(10, 10);
+            rbBall.velocity = new Vector2(10, 16);
             player2.ResetTeclaParaPegar2();
-            Debug.Log("Golpe Basico");
+            //Debug.Log("Golpe Basico");
         }
         if (collision.CompareTag("Hitbox2") && player2.teclaParaRematar2)
         {
             rbBall.velocity = new Vector2(15, -15);
             player2.ResetTeclaParaRematar2();
-            Debug.Log("Remate");
+            //Debug.Log("Remate");
         }
         // PLAYER 2
         if (collision.CompareTag("Hitbox2") && player2.teclaParaFakear2)
         {
             rbBall.velocity = new Vector2(10, 4);
             player2.ResetTeclaParaFakear2();
-            Debug.Log("Fake");
+            //Debug.Log("Fake");
         }
     }
 

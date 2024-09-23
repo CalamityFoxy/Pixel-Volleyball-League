@@ -31,16 +31,66 @@ public class GameManager : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        
+
+        if (player1.ToquesMaximo > 3)
+        {
+            
+            //ResetBall(playerNumber);
+            
+            player1.ToquesMaximo = 0;
+            ResetBall(2);
+            ResetPlayers();
+            scorePlayer2++;
+
+            Debug.Log("Score Player 1: " + scorePlayer1 + " | Score Player 2: " + scorePlayer2);
+
+
+        }
+        if(ball.transform.position.x < 0)
+        {
+            player1.ToquesMaximo = 0;
+            
+        }
+        if (player2.ToquesMaximo2 > 3)
+        {
+
+            //ResetBall(playerNumber);
+
+            player2.ToquesMaximo2 = 0;
+            ResetBall(1);
+            ResetPlayers();
+            scorePlayer1++;
+
+            Debug.Log("Score Player 1: " + scorePlayer1 + " | Score Player 2: " + scorePlayer2);
+
+
+        }
+        if (ball.transform.position.x > 0)
+        {
+            player2.ToquesMaximo2 = 0;
+
+        }
+
+
+    }
+
     public void PlayerScored(int playerNumber)
     {
         if (playerNumber == 1)
         {
             scorePlayer1++;
+            
         }
         else if (playerNumber == 2)
         {
             scorePlayer2++;
+          
         }
+        
+        
 
         Debug.Log("Score Player 1: " + scorePlayer1 + " | Score Player 2: " + scorePlayer2);
 

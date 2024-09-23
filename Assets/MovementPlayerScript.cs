@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MovementPlayerScript : MonoBehaviour
@@ -18,7 +19,9 @@ public class MovementPlayerScript : MonoBehaviour
     private bool TeclaParaSacar1 = false;
     private float tiempoDeEnfriamiento = 0.5f;
     private float tiempoUltimaActivacion = 0f;
+    public int ToquesMaximo = 0;
     private GameManager gameManager;
+
     
     
 
@@ -26,6 +29,7 @@ public class MovementPlayerScript : MonoBehaviour
     public bool teclaParaPegar1 => TeclaParaPegar1;
     public bool teclaParaRematar1 => TeclaParaRematar1;
     public bool teclaParaFakear1 => TeclaParaFakear1;
+    
     
     
 
@@ -47,6 +51,7 @@ public class MovementPlayerScript : MonoBehaviour
             {
                 TeclaParaArmar1 = true;
                 tiempoUltimaActivacion = Time.time;
+                ToquesMaximo++;
             }
         }
         if (Input.GetKey(KeyCode.DownArrow) && IsJumping1 && ballHit.PelotaEnRadio())
@@ -55,6 +60,7 @@ public class MovementPlayerScript : MonoBehaviour
             {
                 TeclaParaFakear1 = true;
                 tiempoUltimaActivacion = Time.time;
+                ToquesMaximo++;
             }
         }
 
@@ -64,6 +70,7 @@ public class MovementPlayerScript : MonoBehaviour
             {
                 TeclaParaPegar1 = true;
                 tiempoUltimaActivacion = Time.time;
+                ToquesMaximo++;
             }
         }
 
@@ -73,6 +80,7 @@ public class MovementPlayerScript : MonoBehaviour
             {
                 TeclaParaRematar1 = true;
                 tiempoUltimaActivacion = Time.time;
+                ToquesMaximo++;
             }
         }
         if (gameManager != null && gameManager.SaquePermitido && Input.GetKeyDown(KeyCode.RightShift))
@@ -116,8 +124,13 @@ public class MovementPlayerScript : MonoBehaviour
             rb1.gravityScale = 1; // Restablece la gravedad al estar en el suelo
         }
 
-        
+
+
+       
+
+
     }
+    
 
     void FixedUpdate()
     {
@@ -139,6 +152,10 @@ public class MovementPlayerScript : MonoBehaviour
         if (collision.gameObject.CompareTag("Net"))
         {
             TouchingNet1 = true;
+        }
+        if(collision.gameObject.CompareTag("Ball"))
+        {
+            ToquesMaximo++;
         }
     }
 
@@ -186,7 +203,7 @@ public class MovementPlayerScript : MonoBehaviour
 
 
         // Aplicar fuerza inicial a la pelota en la dirección especificada
-        ballRb.velocity = new Vector2(-10, 10);
+        ballRb.velocity = new Vector2(-15, 10);
 
         // Desactivar la capacidad de hacer otro saque hasta que se anote otro punto
         gameManager.SaquePermitido = false;
@@ -200,5 +217,6 @@ public class MovementPlayerScript : MonoBehaviour
     {
         TeclaParaSacar1 = true;
     }
+
 
 }

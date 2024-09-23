@@ -15,6 +15,7 @@ public class MovementPlayer2Script : MonoBehaviour
     private bool TeclaParaRematar2 = false;
     private bool TeclaParaFakear2 = false;
     private bool TeclaParaSacar2 = false;
+    public int ToquesMaximo2 = 0;
     private float tiempoDeEnfriamiento = 0.5f;
     private float tiempoUltimaActivacion = 0f;
     private GameManager gameManager;
@@ -41,6 +42,7 @@ public class MovementPlayer2Script : MonoBehaviour
             {
                 TeclaParaArmar2 = true;
                 tiempoUltimaActivacion = Time.time;
+                ToquesMaximo2++;
             }
         }
         if (Input.GetKey(KeyCode.S) && IsJumping2 && ballHit.PelotaEnRadio2())
@@ -49,6 +51,7 @@ public class MovementPlayer2Script : MonoBehaviour
             {
                 TeclaParaFakear2 = true;
                 tiempoUltimaActivacion = Time.time;
+                ToquesMaximo2++;
             }
         }
         if (Input.GetKey(KeyCode.Space) && !IsJumping2 && ballHit.PelotaEnRadio2())
@@ -57,6 +60,7 @@ public class MovementPlayer2Script : MonoBehaviour
             {
                 TeclaParaPegar2 = true;
                 tiempoUltimaActivacion = Time.time;
+                ToquesMaximo2++;
             }
         }
         if (Input.GetKey(KeyCode.Space) && IsJumping2 && ballHit.PelotaEnRadio2())
@@ -65,6 +69,7 @@ public class MovementPlayer2Script : MonoBehaviour
             {
                 TeclaParaRematar2 = true;
                 tiempoUltimaActivacion = Time.time;
+                ToquesMaximo2++;
             }
         }
         if (gameManager != null && gameManager.SaquePermitido2 && Input.GetKeyDown(KeyCode.Space))
@@ -107,6 +112,7 @@ public class MovementPlayer2Script : MonoBehaviour
         {
             rb2.gravityScale = 1; // Restablecer la gravedad normal al estar en el suelo
         }
+        
     }
 
     void FixedUpdate()
@@ -129,6 +135,10 @@ public class MovementPlayer2Script : MonoBehaviour
         if (collision.gameObject.CompareTag("Net"))
         {
             TouchingNet2 = true;
+        }
+        if (collision.gameObject.CompareTag("Ball"))
+        {
+            ToquesMaximo2++;
         }
     }
 
@@ -176,13 +186,14 @@ public class MovementPlayer2Script : MonoBehaviour
 
 
         // Aplicar fuerza inicial a la pelota en la dirección especificada
-        ballRb.velocity = new Vector2(10, 10);
+        ballRb.velocity = new Vector2(15, 10);
 
         // Desactivar la capacidad de hacer otro saque hasta que se anote otro punto
-        gameManager.SaquePermitido = false;
+        gameManager.SaquePermitido2 = false;
 
         // Restablecer la variable TeclaParaSacar1 para evitar múltiples saques con una sola pulsación
         TeclaParaSacar2 = false;
+        Debug.Log("Saque");
     }
 
     // Método para activar la capacidad de saque en el jugador
@@ -190,5 +201,6 @@ public class MovementPlayer2Script : MonoBehaviour
     {
         TeclaParaSacar2 = true;
     }
+
 }
 
