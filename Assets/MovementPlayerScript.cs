@@ -8,24 +8,32 @@ public class MovementPlayerScript : MonoBehaviour
     private BallHit ballHit;
     private Rigidbody2D rb1;
     private bool IsJumping1 = false;
+    private bool Saque1 = false;
     private bool TouchingWall1 = false;
     private bool TouchingNet1 = false;
     private bool TeclaParaArmar1 = false;
     private bool TeclaParaPegar1 = false;
     private bool TeclaParaRematar1 = false;
     private bool TeclaParaFakear1 = false;
+    private bool TeclaParaSacar1 = false;
     private float tiempoDeEnfriamiento = 0.5f;
     private float tiempoUltimaActivacion = 0f;
+    private GameManager gameManager;
+    
+    
 
     public bool teclaParaArmar1 => TeclaParaArmar1;
     public bool teclaParaPegar1 => TeclaParaPegar1;
     public bool teclaParaRematar1 => TeclaParaRematar1;
     public bool teclaParaFakear1 => TeclaParaFakear1;
+    
+    
 
     void Start()
     {
         rb1 = GetComponent<Rigidbody2D>();
         ballHit = FindObjectOfType<BallHit>();
+        gameManager = FindAnyObjectByType<GameManager>();   
     }
 
     void Update()
@@ -67,6 +75,10 @@ public class MovementPlayerScript : MonoBehaviour
                 tiempoUltimaActivacion = Time.time;
             }
         }
+        if (gameManager != null && gameManager.SaquePermitido && Input.GetKeyDown(KeyCode.RightShift))
+        {
+            HacerSaque();
+        }
 
         // Movimiento hacia la derecha
         if (!TouchingWall1)
@@ -104,7 +116,7 @@ public class MovementPlayerScript : MonoBehaviour
             rb1.gravityScale = 1; // Restablece la gravedad al estar en el suelo
         }
 
-        Debug.Log(rb1.velocity);
+        
     }
 
     void FixedUpdate()
@@ -160,4 +172,33 @@ public class MovementPlayerScript : MonoBehaviour
     {
         TeclaParaFakear1 = false;
     }
+    void HacerSaque()
+    {
+        Rigidbody2D ballRb = gameManager.ball.GetComponent<Rigidbody2D>();
+        Rigidbody2D rb = rb1.GetComponent<Rigidbody2D>();
+        
+           
+
+        // Cambiar el cuerpo rígido de la pelota a dinámico
+        ballRb.bodyType = RigidbodyType2D.Dynamic;
+        rb.bodyType = RigidbodyType2D.Dynamic;
+
+
+
+        // Aplicar fuerza inicial a la pelota en la dirección especificada
+        ballRb.velocity = new Vector2(-10, 10);
+
+        // Desactivar la capacidad de hacer otro saque hasta que se anote otro punto
+        gameManager.SaquePermitido = false;
+
+        // Restablecer la variable TeclaParaSacar1 para evitar múltiples saques con una sola pulsación
+        TeclaParaSacar1 = false;
+    }
+
+    // Método para activar la capacidad de saque en el jugador
+    public void ActivarSaque()
+    {
+        TeclaParaSacar1 = true;
+    }
+
 }

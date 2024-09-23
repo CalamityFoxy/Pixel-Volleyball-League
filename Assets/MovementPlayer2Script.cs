@@ -14,8 +14,10 @@ public class MovementPlayer2Script : MonoBehaviour
     private bool TeclaParaPegar2 = false;
     private bool TeclaParaRematar2 = false;
     private bool TeclaParaFakear2 = false;
+    private bool TeclaParaSacar2 = false;
     private float tiempoDeEnfriamiento = 0.5f;
     private float tiempoUltimaActivacion = 0f;
+    private GameManager gameManager;
 
     public bool teclaParaArmar2 => TeclaParaArmar2;
     public bool teclaParaPegar2 => TeclaParaPegar2;
@@ -25,6 +27,7 @@ public class MovementPlayer2Script : MonoBehaviour
     {
         rb2 = GetComponent<Rigidbody2D>();
         ballHit = FindObjectOfType<BallHit>();
+        gameManager = FindAnyObjectByType<GameManager>();
     }
 
     void Update()
@@ -63,6 +66,10 @@ public class MovementPlayer2Script : MonoBehaviour
                 TeclaParaRematar2 = true;
                 tiempoUltimaActivacion = Time.time;
             }
+        }
+        if (gameManager != null && gameManager.SaquePermitido2 && Input.GetKeyDown(KeyCode.Space))
+        {
+            HacerSaque2();
         }
 
         // Movimiento a la izquierda
@@ -154,6 +161,34 @@ public class MovementPlayer2Script : MonoBehaviour
     public void ResetTeclaParaFakear2()
     {
         TeclaParaFakear2 = false;
+    }
+    void HacerSaque2()
+    {
+        Rigidbody2D ballRb = gameManager.ball.GetComponent<Rigidbody2D>();
+        Rigidbody2D rb = rb2.GetComponent<Rigidbody2D>();
+
+
+
+        // Cambiar el cuerpo rígido de la pelota a dinámico
+        ballRb.bodyType = RigidbodyType2D.Dynamic;
+        rb.bodyType = RigidbodyType2D.Dynamic;
+
+
+
+        // Aplicar fuerza inicial a la pelota en la dirección especificada
+        ballRb.velocity = new Vector2(10, 10);
+
+        // Desactivar la capacidad de hacer otro saque hasta que se anote otro punto
+        gameManager.SaquePermitido = false;
+
+        // Restablecer la variable TeclaParaSacar1 para evitar múltiples saques con una sola pulsación
+        TeclaParaSacar2 = false;
+    }
+
+    // Método para activar la capacidad de saque en el jugador
+    public void ActivarSaque2()
+    {
+        TeclaParaSacar2 = true;
     }
 }
 
