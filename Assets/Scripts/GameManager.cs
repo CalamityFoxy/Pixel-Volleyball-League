@@ -1,4 +1,6 @@
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +14,7 @@ public class GameManager : MonoBehaviour
     private BallHit ballHit;
     private MovementPlayerScript player1; // Referencia a Player 1
     private MovementPlayer2Script player2; // Referencia a Player 2
+    private SceneManager sceneManager;  
     
 
     public bool SaquePermitido = false;
@@ -22,7 +25,7 @@ public class GameManager : MonoBehaviour
     {
         player1 = GameObject.FindWithTag("Player1").GetComponent<MovementPlayerScript>(); // Asegúrate de que Player1 tiene esta etiqueta
         player2 = GameObject.FindWithTag("Player2").GetComponent<MovementPlayer2Script>(); // Asegúrate de que Player2 tiene esta etiqueta
-          
+        sceneManager = new SceneManager();  
        
         ballHit = ball.GetComponent<BallHit>();
         int PlayerQueSaca = Random.Range(1, 3);
@@ -31,16 +34,69 @@ public class GameManager : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        
+
+        if (player1.ToquesMaximo > 3)
+        {
+            
+            //ResetBall(playerNumber);
+            
+            player1.ToquesMaximo = 0;
+            ResetBall(2);
+            ResetPlayers();
+            scorePlayer2++;
+
+            Debug.Log("Score Player 1: " + scorePlayer1 + " | Score Player 2: " + scorePlayer2);
+
+
+        }
+        if(ball.transform.position.x < 0)
+        {
+            player1.ToquesMaximo = 0;
+            
+        }
+        if (player2.ToquesMaximo2 > 3)
+        {
+
+            //ResetBall(playerNumber);
+
+            player2.ToquesMaximo2 = 0;
+            ResetBall(1);
+            ResetPlayers();
+            scorePlayer1++;
+
+            Debug.Log("Score Player 1: " + scorePlayer1 + " | Score Player 2: " + scorePlayer2);
+
+
+        }
+        if (ball.transform.position.x > 0)
+        {
+            player2.ToquesMaximo2 = 0;
+
+        }
+       
+        
+        ResetGame();
+
+
+    }
+
     public void PlayerScored(int playerNumber)
     {
         if (playerNumber == 1)
         {
             scorePlayer1++;
+            
         }
         else if (playerNumber == 2)
         {
             scorePlayer2++;
+          
         }
+        
+        
 
         Debug.Log("Score Player 1: " + scorePlayer1 + " | Score Player 2: " + scorePlayer2);
 
@@ -113,6 +169,33 @@ public class GameManager : MonoBehaviour
         player2.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
     }
    
+    private void ResetGame()
+    {
+        if(scorePlayer1 ==5)
+        {
+            Debug.Log("Player 1 WINS!");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+            scorePlayer1 = 0;
+            scorePlayer2 = 0;
+            player2.ToquesMaximo2 = 0;
+            player1.ToquesMaximo = 0;
+
+        }
+
+        if(scorePlayer2 ==5)
+        {
+              Debug.Log("Player 2 WINS!");
+              SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+
+            scorePlayer2 = 0;
+            scorePlayer1 = 0;
+            player2.ToquesMaximo2 = 0;
+            player1.ToquesMaximo = 0;
+
+        }
+    }
    
 }
 
