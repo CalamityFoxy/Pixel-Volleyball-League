@@ -22,22 +22,22 @@ public class MovementPlayerScript : MonoBehaviour
     public int ToquesMaximo = 0;
     private GameManager gameManager;
 
-    
-    
+
+
 
     public bool teclaParaArmar1 => TeclaParaArmar1;
     public bool teclaParaPegar1 => TeclaParaPegar1;
     public bool teclaParaRematar1 => TeclaParaRematar1;
     public bool teclaParaFakear1 => TeclaParaFakear1;
-    
-    
-    
+
+
+
 
     void Start()
     {
         rb1 = GetComponent<Rigidbody2D>();
         ballHit = FindObjectOfType<BallHit>();
-        gameManager = FindAnyObjectByType<GameManager>();   
+        gameManager = FindAnyObjectByType<GameManager>();
     }
 
     void Update()
@@ -126,11 +126,11 @@ public class MovementPlayerScript : MonoBehaviour
 
 
 
-       
+
 
 
     }
-    
+
 
     void FixedUpdate()
     {
@@ -153,7 +153,7 @@ public class MovementPlayerScript : MonoBehaviour
         {
             TouchingNet1 = true;
         }
-        if(collision.gameObject.CompareTag("Ball"))
+        if (collision.gameObject.CompareTag("Ball"))
         {
             ToquesMaximo++;
         }
@@ -193,8 +193,8 @@ public class MovementPlayerScript : MonoBehaviour
     {
         Rigidbody2D ballRb = gameManager.ball.GetComponent<Rigidbody2D>();
         Rigidbody2D rb = rb1.GetComponent<Rigidbody2D>();
-        
-           
+
+
 
         // Cambiar el cuerpo rígido de la pelota a dinámico
         ballRb.bodyType = RigidbodyType2D.Dynamic;
