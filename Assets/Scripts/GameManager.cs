@@ -1,6 +1,8 @@
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,8 +16,10 @@ public class GameManager : MonoBehaviour
     private BallHit ballHit;
     private MovementPlayerScript player1; // Referencia a Player 1
     private MovementPlayer2Script player2; // Referencia a Player 2
-    private SceneManager sceneManager;  
-    
+    private SceneManager sceneManager;
+
+    public TextMeshProUGUI scoreTextPlayer1; // Texto en UI para el puntaje del jugador 1
+    public TextMeshProUGUI scoreTextPlayer2; // Texto en UI para el puntaje del jugador 2
 
     public bool SaquePermitido = false;
     public bool SaquePermitido2 = false;
@@ -31,6 +35,7 @@ public class GameManager : MonoBehaviour
         int PlayerQueSaca = Random.Range(1, 3);
         ResetBall(PlayerQueSaca);
         ResetPlayers();
+        UpdateScoreText(); // Actualizar el texto al inicio
 
     }
 
@@ -47,6 +52,7 @@ public class GameManager : MonoBehaviour
             ResetBall(2);
             ResetPlayers();
             scorePlayer2++;
+            UpdateScoreText();
 
             Debug.Log("Score Player 1: " + scorePlayer1 + " | Score Player 2: " + scorePlayer2);
 
@@ -66,6 +72,7 @@ public class GameManager : MonoBehaviour
             ResetBall(1);
             ResetPlayers();
             scorePlayer1++;
+            UpdateScoreText(); // Actualizar el texto al inicio
 
             Debug.Log("Score Player 1: " + scorePlayer1 + " | Score Player 2: " + scorePlayer2);
 
@@ -88,21 +95,28 @@ public class GameManager : MonoBehaviour
         if (playerNumber == 1)
         {
             scorePlayer1++;
-            
+
         }
         else if (playerNumber == 2)
         {
             scorePlayer2++;
-          
+
         }
-        
-        
+
+
 
         Debug.Log("Score Player 1: " + scorePlayer1 + " | Score Player 2: " + scorePlayer2);
 
+        UpdateScoreText();
         // Reiniciar la pelota y los jugadores
         ResetBall(playerNumber);
         ResetPlayers(); // Reiniciar las posiciones de los jugadores
+    }
+    private void UpdateScoreText()
+    {
+        // Actualizar el texto en la UI
+        scoreTextPlayer1.text = "Player 1: " + scorePlayer1;
+        scoreTextPlayer2.text = "Player 2: " + scorePlayer2;
     }
 
     private void ResetBall(int playerNumber)
