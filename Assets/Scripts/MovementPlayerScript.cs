@@ -203,7 +203,7 @@ public class MovementPlayerScript : MonoBehaviour
 
 
         // Aplicar fuerza inicial a la pelota en la dirección especificada
-        ballRb.velocity = new Vector2(-15, 10);
+        ballRb.velocity = new Vector2(-12, 10);
 
         // Desactivar la capacidad de hacer otro saque hasta que se anote otro punto
         gameManager.SaquePermitido = false;

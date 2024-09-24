@@ -9,6 +9,7 @@ public class BallHit : MonoBehaviour
     private MovementPlayer2Script player2;
     private bool pelotaEnRadio1 = false;
     private bool pelotaEnRadio2 = false;
+    private float speed = 1.5f;
     public bool PelotaEnRadio()
     {
         return pelotaEnRadio1;
@@ -40,7 +41,7 @@ public class BallHit : MonoBehaviour
         if (collision.gameObject.CompareTag("Hitbox2"))
         {
             pelotaEnRadio2 = true;
-           // Debug.Log("ColisionaConPlayer2");
+            // Debug.Log("ColisionaConPlayer2");
         }
 
         // Detecta cuando la pelota entra en la zona de gol de un jugador
@@ -65,19 +66,19 @@ public class BallHit : MonoBehaviour
         }
         if (collision.CompareTag("Hitbox") && player.teclaParaFakear1)
         {
-            rbBall.velocity = new Vector2(-10, 4);
+            rbBall.velocity = new Vector2(-10, 5);
             player.ResetTeclaParaFakear();
             //Debug.Log("Fakear");
         }
         if (collision.CompareTag("Hitbox") && player.teclaParaPegar1)
         {
-            rbBall.velocity = new Vector2(-10, 16);
+            rbBall.velocity = new Vector2(-8, 13);
             player.ResetTeclaParaPegar();
             //Debug.Log("Golpe Basico");
         }
         if (collision.CompareTag("Hitbox") && player.teclaParaRematar1)
         {
-            rbBall.velocity = new Vector2(-15, -15);
+            rbBall.velocity = new Vector2(-25, -10);
             player.ResetTeclaParaRematar();
             //Debug.Log("Remate");
         }
@@ -91,20 +92,20 @@ public class BallHit : MonoBehaviour
         }
         if (collision.CompareTag("Hitbox2") && player2.teclaParaPegar2)
         {
-            rbBall.velocity = new Vector2(10, 16);
+            rbBall.velocity = new Vector2(8, 13);
             player2.ResetTeclaParaPegar2();
             //Debug.Log("Golpe Basico");
         }
         if (collision.CompareTag("Hitbox2") && player2.teclaParaRematar2)
         {
-            rbBall.velocity = new Vector2(15, -15);
+            rbBall.velocity = new Vector2(25, -10);
             player2.ResetTeclaParaRematar2();
             //Debug.Log("Remate");
         }
         // PLAYER 2
         if (collision.CompareTag("Hitbox2") && player2.teclaParaFakear2)
         {
-            rbBall.velocity = new Vector2(10, 4);
+            rbBall.velocity = new Vector2(10, 5);
             player2.ResetTeclaParaFakear2();
             //Debug.Log("Fake");
         }
