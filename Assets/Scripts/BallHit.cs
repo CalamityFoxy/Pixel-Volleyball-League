@@ -9,7 +9,8 @@ public class BallHit : MonoBehaviour
     private MovementPlayer2Script player2;
     private bool pelotaEnRadio1 = false;
     private bool pelotaEnRadio2 = false;
-    private float speed = 1.5f;
+    
+    
     public bool PelotaEnRadio()
     {
         return pelotaEnRadio1;
@@ -28,88 +29,101 @@ public class BallHit : MonoBehaviour
         player2 = GameObject.FindWithTag("Player2").GetComponent<MovementPlayer2Script>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        // PLAYER 1
-        if (collision.gameObject.CompareTag("Hitbox"))
-        {
-            pelotaEnRadio1 = true;
-            //Debug.Log("ColisionaConPlayer1");
-        }
+      private void OnTriggerEnter2D(Collider2D collision)
+      {
+          // PLAYER 1
+          if (collision.gameObject.CompareTag("Hitbox"))
+          {
+              pelotaEnRadio1 = true;
+              //Debug.Log("ColisionaConPlayer1");
+          }
 
-        // PLAYER 2
-        if (collision.gameObject.CompareTag("Hitbox2"))
-        {
-            pelotaEnRadio2 = true;
-            // Debug.Log("ColisionaConPlayer2");
-        }
+          // PLAYER 2
+          if (collision.gameObject.CompareTag("Hitbox2"))
+          {
+              pelotaEnRadio2 = true;
+              // Debug.Log("ColisionaConPlayer2");
+          }
 
-        // Detecta cuando la pelota entra en la zona de gol de un jugador
-        if (collision.gameObject.CompareTag("Player1Goal"))
-        {
-            gameManager.PlayerScored(2); // Jugador 2 anotó un punto
-        }
-        if (collision.gameObject.CompareTag("Player2Goal"))
-        {
-            gameManager.PlayerScored(1); // Jugador 1 anotó un punto
-        }
-    }
+          // Detecta cuando la pelota entra en la zona de gol de un jugador
+          if (collision.gameObject.CompareTag("Player1Goal"))
+          {
+              gameManager.PlayerScored(2); // Jugador 2 anotó un punto
+          }
+          if (collision.gameObject.CompareTag("Player2Goal"))
+          {
+              gameManager.PlayerScored(1); // Jugador 1 anotó un punto
+          }
+      }
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        // PLAYER 1
-        if (collision.CompareTag("Hitbox") && player.teclaParaArmar1)
-        {
+     private void OnTriggerStay2D(Collider2D collision)
+     {
+         // PLAYER 1
+         if (collision.CompareTag("Hitbox") && player.teclaParaArmar1)
+         {
             rbBall.velocity = new Vector2(-2, 15);
-            player.ResetTeclaParaArmar();
-            //Debug.Log("Armado");
-        }
-        if (collision.CompareTag("Hitbox") && player.teclaParaFakear1)
-        {
-            rbBall.velocity = new Vector2(-10, 5);
-            player.ResetTeclaParaFakear();
-            //Debug.Log("Fakear");
-        }
-        if (collision.CompareTag("Hitbox") && player.teclaParaPegar1)
-        {
-            rbBall.velocity = new Vector2(-8, 13);
-            player.ResetTeclaParaPegar();
-            //Debug.Log("Golpe Basico");
-        }
-        if (collision.CompareTag("Hitbox") && player.teclaParaRematar1)
-        {
-            rbBall.velocity = new Vector2(-25, -10);
-            player.ResetTeclaParaRematar();
-            //Debug.Log("Remate");
-        }
 
-        // PLAYER 2
-        if (collision.CompareTag("Hitbox2") && player2.teclaParaArmar2)
-        {
-            rbBall.velocity = new Vector2(2, 15);
-            player2.ResetTeclaParaArmar2();
-            //Debug.Log("Armado");
-        }
-        if (collision.CompareTag("Hitbox2") && player2.teclaParaPegar2)
-        {
-            rbBall.velocity = new Vector2(8, 13);
-            player2.ResetTeclaParaPegar2();
-            //Debug.Log("Golpe Basico");
-        }
-        if (collision.CompareTag("Hitbox2") && player2.teclaParaRematar2)
-        {
-            rbBall.velocity = new Vector2(25, -10);
-            player2.ResetTeclaParaRematar2();
-            //Debug.Log("Remate");
-        }
-        // PLAYER 2
-        if (collision.CompareTag("Hitbox2") && player2.teclaParaFakear2)
-        {
-            rbBall.velocity = new Vector2(10, 5);
-            player2.ResetTeclaParaFakear2();
-            //Debug.Log("Fake");
-        }
-    }
+
+           player.ResetTeclaParaArmar();
+             //Debug.Log("Armado");
+         }
+         if (collision.CompareTag("Hitbox") && player.teclaParaFakear1)
+         {
+            rbBall.velocity = new Vector2(-10, 5);
+
+
+           player.ResetTeclaParaFakear();
+             //Debug.Log("Fakear");
+         }
+         if (collision.CompareTag("Hitbox") && player.teclaParaPegar1)
+         {
+             rbBall.velocity = new Vector2(-8, 13);
+
+
+           player.ResetTeclaParaPegar();
+             //Debug.Log("Golpe Basico");
+         }
+         if (collision.CompareTag("Hitbox") && player.teclaParaRematar1)
+         {
+           rbBall.velocity = new Vector2(-25, -10);
+
+           player.ResetTeclaParaRematar();
+
+           //Debug.Log("Remate");
+       }
+
+         // PLAYER 2
+         if (collision.CompareTag("Hitbox2") && player2.teclaParaArmar2)
+         {
+             rbBall.velocity = new Vector2(2, 15);
+             player2.ResetTeclaParaArmar2();
+
+           //Debug.Log("Armado");
+       }
+         if (collision.CompareTag("Hitbox2") && player2.teclaParaPegar2)
+         {
+             rbBall.velocity = new Vector2(8, 13);
+             player2.ResetTeclaParaPegar2();
+             //Debug.Log("Golpe Basico");
+         }
+         if (collision.CompareTag("Hitbox2") && player2.teclaParaRematar2)
+         {
+             rbBall.velocity = new Vector2(25, -10);
+             player2.ResetTeclaParaRematar2();
+             //Debug.Log("Remate");
+         }
+         // PLAYER 2
+         if (collision.CompareTag("Hitbox2") && player2.teclaParaFakear2)
+         {
+             rbBall.velocity = new Vector2(10, 5);
+
+             player2.ResetTeclaParaFakear2();
+             //Debug.Log("Fake");
+         }
+     }
+   
+
+
 
     private void OnTriggerExit2D(Collider2D collision)
     {
