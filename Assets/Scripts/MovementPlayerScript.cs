@@ -153,10 +153,10 @@ public class MovementPlayerScript : MonoBehaviour
         {
             TouchingNet1 = true;
         }
-        if(collision.gameObject.CompareTag("Ball"))
+       /* if(collision.gameObject.CompareTag("Ball"))
         {
             ToquesMaximo++;
-        }
+        }*/
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -203,7 +203,7 @@ public class MovementPlayerScript : MonoBehaviour
 
 
         // Aplicar fuerza inicial a la pelota en la dirección especificada
-        ballRb.velocity = new Vector2(-12, 10);
+        ballRb.velocity = new Vector2(-20, 25);
 
         // Desactivar la capacidad de hacer otro saque hasta que se anote otro punto
         gameManager.SaquePermitido = false;
