@@ -1,4 +1,3 @@
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -115,8 +114,8 @@ public class GameManager : MonoBehaviour
     private void UpdateScoreText()
     {
         // Actualizar el texto en la UI
-        scoreTextPlayer1.text = "Player 1: " + scorePlayer1;
-        scoreTextPlayer2.text = "Player 2: " + scorePlayer2;
+        scoreTextPlayer1.text = "Player1: " + scorePlayer1;
+        scoreTextPlayer2.text = "Player2: " + scorePlayer2;
     }
 
     private void ResetBall(int playerNumber)
