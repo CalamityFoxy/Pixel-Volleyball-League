@@ -9,6 +9,8 @@ public class BallHit : MonoBehaviour
     private MovementPlayer2Script player2;
     private bool pelotaEnRadio1 = false;
     private bool pelotaEnRadio2 = false;
+    private bool Hitplayer1 = false;
+    private bool Hitplayer2 = false;
     
     
     public bool PelotaEnRadio()
@@ -30,7 +32,35 @@ public class BallHit : MonoBehaviour
     }
     private void Update()
     {
-       // Debug.Log(rbBall.gravityScale);
+        // Debug.Log(rbBall.gravityScale);
+        
+        if (rbBall.transform.position.x > 0)
+        {
+            Hitplayer2 = false;
+          //  Debug.Log(Hitplayer2);
+        }
+        if (rbBall.transform.position.x < 0)
+        {
+            Hitplayer1 = false;
+           // Debug.Log(Hitplayer1);
+        }
+
+    }
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Player1"))
+        {
+            Hitplayer1 = true;
+            Debug.Log(Hitplayer1);
+
+        }
+
+        if (collision.gameObject.CompareTag("Player2"))
+        {
+            Hitplayer2 = true;
+            Debug.Log(Hitplayer2);
+        }
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -58,7 +88,29 @@ public class BallHit : MonoBehaviour
           {
               gameManager.PlayerScored(1); // Jugador 1 anotó un punto
           }
-      }
+        if (collision.gameObject.CompareTag("Player3Goal") && Hitplayer1 == true)
+        {
+            gameManager.PlayerScored(2); // Jugador 2 anotó un punto
+            
+        }
+        if (collision.gameObject.CompareTag("Player4Goal") && Hitplayer2 == true) 
+        {
+            gameManager.PlayerScored(1); // Jugador 1 anotó un punto
+            
+            
+        }
+        if (collision.gameObject.CompareTag("Player3Goal") && Hitplayer1 == false)
+        {
+            gameManager.PlayerScored(1); // Jugador 2 anotó un punto
+            
+        }
+        if (collision.gameObject.CompareTag("Player4Goal") && Hitplayer2 == false)
+        {
+            gameManager.PlayerScored(2); // Jugador 1 anotó un punto
+            
+
+        }
+    }
 
      private void OnTriggerStay2D(Collider2D collision)
      {

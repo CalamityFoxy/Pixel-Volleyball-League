@@ -14,6 +14,8 @@ TagManager:
   - Player2
   - Player1Goal
   - Player2Goal
+  - Player3Goal
+  - Player4Goal
   layers:
   - Default
   - TransparentFX
