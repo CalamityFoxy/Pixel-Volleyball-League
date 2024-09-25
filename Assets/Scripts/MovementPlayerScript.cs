@@ -125,10 +125,10 @@ public class MovementPlayerScript : MonoBehaviour
         }
 
 
+        
 
-       
 
-
+        
     }
     
 
@@ -210,6 +210,7 @@ public class MovementPlayerScript : MonoBehaviour
 
         // Restablecer la variable TeclaParaSacar1 para evitar múltiples saques con una sola pulsación
         TeclaParaSacar1 = false;
+
     }
 
     // Método para activar la capacidad de saque en el jugador

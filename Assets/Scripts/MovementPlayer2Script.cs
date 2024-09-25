@@ -54,7 +54,7 @@ public class MovementPlayer2Script : MonoBehaviour
                 ToquesMaximo2++;
             }
         }
-        if (Input.GetKey(KeyCode.Space) && !IsJumping2 && ballHit.PelotaEnRadio2())
+        if (Input.GetKeyDown(KeyCode.Space) && !IsJumping2 && ballHit.PelotaEnRadio2())
         {
             if (Time.time >= tiempoUltimaActivacion + tiempoDeEnfriamiento)
             {
@@ -75,6 +75,7 @@ public class MovementPlayer2Script : MonoBehaviour
         if (gameManager != null && gameManager.SaquePermitido2 && Input.GetKeyDown(KeyCode.Space))
         {
             HacerSaque2();
+            return; // Evita procesar más entradas si se hizo un saque
         }
 
         // Movimiento a la izquierda
@@ -112,7 +113,7 @@ public class MovementPlayer2Script : MonoBehaviour
         {
             rb2.gravityScale = 1; // Restablecer la gravedad normal al estar en el suelo
         }
-        
+        Debug.Log(teclaParaPegar2);
     }
 
     void FixedUpdate()
@@ -187,13 +188,17 @@ public class MovementPlayer2Script : MonoBehaviour
 
         // Aplicar fuerza inicial a la pelota en la dirección especificada
         ballRb.velocity = new Vector2(26, 22);
+        
 
         // Desactivar la capacidad de hacer otro saque hasta que se anote otro punto
         gameManager.SaquePermitido2 = false;
 
         // Restablecer la variable TeclaParaSacar1 para evitar múltiples saques con una sola pulsación
         TeclaParaSacar2 = false;
+        
         Debug.Log("Saque");
+       
+        
     }
 
     // Método para activar la capacidad de saque en el jugador
